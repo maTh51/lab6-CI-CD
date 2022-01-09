@@ -1,5 +1,6 @@
-from os import pipe
 import random
+
+ttt_size = 3
 
 class Tic_tac_toe:
 
@@ -10,7 +11,7 @@ class Tic_tac_toe:
 
     def new_board(self):
         self.board.clear()
-        for i in range(3):
+        for i in range(ttt_size):
             self.board.append(['.', '.', '.'])
 
     def next_turn(self):
@@ -21,9 +22,9 @@ class Tic_tac_toe:
 
     def set_field(self, x_coord, y_coord):
         if(x_coord < 0 or x_coord > 2 or not isinstance(x_coord, int)):
-            raise ValueError("Invalid coordinates (input only 1, 2 or 3)")
+            raise ValueError("Invalid coordinates (input only 1, 2 or ttt_size)")
         elif(y_coord < 0 or y_coord > 2 or not isinstance(y_coord, int)):
-            raise ValueError("Invalid coordinates (input only 1, 2 or 3)")
+            raise ValueError("Invalid coordinates (input only 1, 2 or ttt_size)")
         elif(self.board[x_coord][y_coord] != '.'):
             raise ValueError("Field already set. Choose another")
         else:
@@ -32,25 +33,25 @@ class Tic_tac_toe:
 
     def check_victory(self):
         win_flag = True
-        for col in range(3):
+        for col in range(ttt_size):
             win_flag = True
-            for i in range(3):
+            for i in range(ttt_size):
                 if(self.board[i][col] != self.cur_player):
                     win_flag = False
         
             if(win_flag):
                 return True
 
-        for row in range(3):
+        for row in range(ttt_size):
             win_flag = True
-            for i in range(3):
+            for i in range(ttt_size):
                 if(self.board[row][i] != self.cur_player):
                     win_flag = False 
             if(win_flag):
                 return True
 
         win_flag = True
-        for diag in range(3):
+        for diag in range(ttt_size):
             if(self.board[diag][diag] != self.cur_player):
                 win_flag = False
         
@@ -58,15 +59,15 @@ class Tic_tac_toe:
             return True
 
         win_flag = True
-        for diag in range(3):
-            if(self.board[diag][3 - 1 - diag] != self.cur_player):
+        for diag in range(ttt_size):
+            if(self.board[diag][ttt_size - 1 - diag] != self.cur_player):
                 win_flag = False
         
         return win_flag
 
     def check_draw_game(self):
-        for row in range(3):
-            for col in range(3):
+        for row in range(ttt_size):
+            for col in range(ttt_size):
                 if(self.board[row][col] == '.'):
                     return False
         
@@ -74,8 +75,8 @@ class Tic_tac_toe:
     
     def ia_choose_field(self):
         possibles = []
-        for row in range(3):
-            for col in range(3):
+        for row in range(ttt_size):
+            for col in range(ttt_size):
                 if(self.board[row][col] == '.'):
                     possibles.append((row, col))
 
@@ -180,5 +181,3 @@ class Tic_tac_toe:
                 else:
                     self.next_turn()
                     player = (player + 1)%2
-
-                        

@@ -65,7 +65,8 @@ class Test_ttt(unittest.TestCase):
         with self.assertRaises(Exception):
             self._ttt.set_field(0, 3)
     
-
-
-    # def test_sum_tuple(self):
-    #     self.assertEqual(sum((1, 3, 2)), 6, "Should be 6")
+    def test_ia_choose_field(self):
+        self._ttt.new_board()
+        ia_possible = self._ttt.ia_choose_field()
+        self.assertTrue(ia_possible[0] <= 2 and ia_possible[0] >= 0 and ia_possible[1] <= 2 and ia_possible[1] >= 0 )
+        
